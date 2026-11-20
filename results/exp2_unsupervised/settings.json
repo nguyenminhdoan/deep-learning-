@@ -1,0 +1,33 @@
+{
+  "word2vec": {
+    "vector_size": 100,
+    "window": 5,
+    "min_count": 2,
+    "negative": 10,
+    "epochs": 30,
+    "seed": 42
+  },
+  "classifier": {
+    "max_len": 32,
+    "lstm_units": 64,
+    "dense_units": 32,
+    "embedding_dropout": 0.3,
+    "dropout": 0.5,
+    "learning_rate": 0.001,
+    "batch_size": 32,
+    "max_epochs": 20,
+    "patience": 3
+  },
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "vocab_size": 7251,
+  "corpus_tweets": 9353,
+  "split_sizes": {
+    "train": 6090,
+    "val": 761,
+    "test": 762
+  }
+}

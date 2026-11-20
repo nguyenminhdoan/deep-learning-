@@ -1,0 +1,116 @@
+C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\joblib\externals\loky\backend\context.py:136: UserWarning: Could not find the number of physical cores for the following reason:
+[WinError 2] The system cannot find the file specified
+Returning the number of logical cores instead. You can silence this warning by setting LOKY_MAX_CPU_COUNT to the number of cores you want to use.
+  warnings.warn(
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\joblib\externals\loky\backend\context.py", line 257, in _count_physical_cores
+    cpu_info = subprocess.run(
+               ^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\subprocess.py", line 546, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\subprocess.py", line 1022, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\subprocess.py", line 1491, in _execute_child
+    hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-11-19 22:13:20.361251: E tensorflow/core/util/util.cc:131] oneDNN supports DT_BOOL only on platforms with AVX-512. Falling back to the default Eigen-based implementation if present.
+== 1. Training Word2Vec (unsupervised) ==
+Word2Vec corpus: 9353 tweets, vocabulary 7251 tokens
+
+== 2. Inspecting the embeddings ==
+Nearest neighbours (skip-gram)
+  fire         truck (0.72), catches (0.63), apartment (0.58), alarm (0.58), township (0.57), burns (0.56), langley (0.56), brush (0.55)
+  earthquake   users (0.72), iphone (0.66), unitedstates (0.65), ssw (0.63), anza (0.62), sismo (0.61), apocalyptic (0.61), puerto (0.61)
+  flood        combo (0.68), alloy (0.68), manipur (0.66), inch (0.66), incessant (0.65), curved (0.63), waters (0.62), beam (0.62)
+  storm        dust (0.74), violent (0.72), atmospheric (0.61), disappear (0.60), auckland (0.59), northland (0.58), totoo (0.56), tunein (0.56)
+  killed       maryland (0.64), twelve (0.62), arabia (0.62), kills (0.62), reportedly (0.62), exc (0.61), militant (0.61), kurdish (0.60)
+  bomb         detonated (0.66), vest (0.65), trench (0.63), atom (0.62), entity (0.61), editorial (0.61), cas (0.61), witch (0.60)
+  evacuation   veld (0.67), orders (0.67), faan (0.66), voluntary (0.65), swayback (0.61), roosevelt (0.60), yellow (0.57), abandoned (0.57)
+  police       officer (0.59), pg (0.56), gunfire (0.55), kisii (0.55), countynews (0.54), abusing (0.54), officers (0.54), suspect (0.52)
+  love         oohshit (0.60), architecture (0.59), lulgzimbestpicts (0.58), truelove (0.57), fandom (0.57), defundpp (0.57), engvaus (0.56), suspense (0.56)
+  lol          cuffed (0.65), twice (0.62), folk (0.62), earbuds (0.61), finna (0.61), wishing (0.61), surprised (0.61), meerkat (0.61)
+  <url>        bookboost (0.53), twx (0.53), chronicle (0.53), gn (0.52), downfall (0.52), assistant (0.52), via (0.51), oped (0.51)
+
+Nearest neighbours (CBOW)
+  fire         fires (0.54), grove (0.52), service (0.49), apartment (0.49), street (0.48), routecomplex (0.47), lanes (0.47), burning (0.46)
+  earthquake   users (0.80), iphone (0.79), km (0.79), anchorage (0.77), usgs (0.76), anza (0.76), utc (0.75), ssw (0.75)
+  flood        combo (0.82), bar (0.79), wd (0.76), offroad (0.76), inch (0.72), mining (0.72), shelby (0.72), led (0.72)
+  storm        violent (0.72), dust (0.65), amsterdam (0.60), formation (0.58), footage (0.57), boston (0.57), pov (0.56), player (0.56)
+  killed       wounded (0.76), died (0.72), gang (0.71), suru (0.71), officer (0.70), arabia (0.69), reportedly (0.69), killing (0.68)
+  bomb         dropped (0.75), atomic (0.71), hiroshima (0.71), bombing (0.70), nagasaki (0.68), detonated (0.66), turkey (0.66), suicide (0.65)
+  evacuation   orders (0.82), roosevelt (0.82), lifted (0.79), swayback (0.74), voluntary (0.74), faan (0.74), town (0.74), ridge (0.72)
+  police       officer (0.69), stockton (0.67), wounded (0.67), richmond (0.67), arrest (0.66), terror (0.66), gunman (0.66), arrested (0.66)
+  love         mean (0.70), guys (0.69), buy (0.69), thank (0.68), name (0.67), honestly (0.67), heal (0.67), hear (0.66)
+  lol          haha (0.72), fucking (0.71), pretty (0.68), probably (0.67), eat (0.66), amazing (0.65), twice (0.65), really (0.65)
+  <url>        sa (0.54), tool (0.54), row (0.53), multiplayer (0.53), thriller (0.52), nyt (0.51), survival (0.51), review (0.51)
+
+== 3. Linear probe ==
+
+Linear probe on frozen mean-pooled vectors (test split):
+                                   model  accuracy  precision  recall     f1
+Mean W2V skip-gram + logistic regression    0.7730     0.7810  0.6544 0.7121
+     Mean W2V CBOW + logistic regression    0.7585     0.7619  0.6361 0.6933
+
+== 4. Transfer learning into the BiLSTM ==
+  Random init (baseline)       seed 0  acc 0.8136  f1 0.7609  (4 epochs)
+  Random init (baseline)       seed 1  acc 0.7940  f1 0.7250  (4 epochs)
+  Random init (baseline)       seed 2  acc 0.8189  f1 0.7587  (4 epochs)
+  W2V skip-gram, frozen        seed 0  acc 0.7966  f1 0.7314  (10 epochs)
+  W2V skip-gram, frozen        seed 1  acc 0.7703  f1 0.6824  (11 epochs)
+  W2V skip-gram, frozen        seed 2  acc 0.7913  f1 0.7196  (9 epochs)
+  W2V skip-gram, fine-tuned    seed 0  acc 0.8228  f1 0.7791  (7 epochs)
+  W2V skip-gram, fine-tuned    seed 1  acc 0.8084  f1 0.7430  (6 epochs)
+  W2V skip-gram, fine-tuned    seed 2  acc 0.8084  f1 0.7500  (6 epochs)
+  W2V CBOW, frozen             seed 0  acc 0.7927  f1 0.7304  (11 epochs)
+  W2V CBOW, frozen             seed 1  acc 0.8018  f1 0.7383  (10 epochs)
+  W2V CBOW, frozen             seed 2  acc 0.7887  f1 0.7210  (9 epochs)
+  W2V CBOW, fine-tuned         seed 0  acc 0.8215  f1 0.7695  (7 epochs)
+  W2V CBOW, fine-tuned         seed 1  acc 0.8136  f1 0.7568  (7 epochs)
+  W2V CBOW, fine-tuned         seed 2  acc 0.8110  f1 0.7568  (7 epochs)
+
+Test split, mean ± std over 3 seeds:
+| Model | Accuracy | Precision | Recall | F1 |
+|---|---|---|---|---|
+| BiLSTM, Random init (baseline) | 0.809 ± 0.011 | 0.860 ± 0.018 | 0.663 ± 0.024 | 0.748 ± 0.016 |
+| BiLSTM, W2V skip-gram, frozen | 0.786 ± 0.011 | 0.844 ± 0.004 | 0.615 ± 0.029 | 0.711 ± 0.021 |
+| BiLSTM, W2V skip-gram, fine-tuned | 0.813 ± 0.007 | 0.855 ± 0.015 | 0.681 ± 0.035 | 0.757 ± 0.016 |
+| BiLSTM, W2V CBOW, frozen | 0.794 ± 0.005 | 0.837 ± 0.011 | 0.647 ± 0.008 | 0.730 ± 0.007 |
+| BiLSTM, W2V CBOW, fine-tuned | 0.815 ± 0.004 | 0.856 ± 0.008 | 0.685 ± 0.007 | 0.761 ± 0.006 |
+
+== 5. Label efficiency ==
+   10% labels  Random init (baseline)       seed 0  f1 0.6375
+   10% labels  W2V skip-gram, frozen        seed 0  f1 0.7153
+   10% labels  W2V skip-gram, fine-tuned    seed 0  f1 0.6979
+   10% labels  Random init (baseline)       seed 1  f1 0.0182
+   10% labels  W2V skip-gram, frozen        seed 1  f1 0.6854
+   10% labels  W2V skip-gram, fine-tuned    seed 1  f1 0.6878
+   10% labels  Random init (baseline)       seed 2  f1 0.6429
+   10% labels  W2V skip-gram, frozen        seed 2  f1 0.6728
+   10% labels  W2V skip-gram, fine-tuned    seed 2  f1 0.6858
+   25% labels  Random init (baseline)       seed 0  f1 0.6897
+   25% labels  W2V skip-gram, frozen        seed 0  f1 0.7204
+   25% labels  W2V skip-gram, fine-tuned    seed 0  f1 0.7116
+   25% labels  Random init (baseline)       seed 1  f1 0.6957
+   25% labels  W2V skip-gram, frozen        seed 1  f1 0.6893
+   25% labels  W2V skip-gram, fine-tuned    seed 1  f1 0.7150
+   25% labels  Random init (baseline)       seed 2  f1 0.6607
+   25% labels  W2V skip-gram, frozen        seed 2  f1 0.6435
+   25% labels  W2V skip-gram, fine-tuned    seed 2  f1 0.6934
+   50% labels  Random init (baseline)       seed 0  f1 0.7212
+   50% labels  W2V skip-gram, frozen        seed 0  f1 0.7118
+   50% labels  W2V skip-gram, fine-tuned    seed 0  f1 0.7445
+   50% labels  Random init (baseline)       seed 1  f1 0.6654
+   50% labels  W2V skip-gram, frozen        seed 1  f1 0.7032
+   50% labels  W2V skip-gram, fine-tuned    seed 1  f1 0.7254
+   50% labels  Random init (baseline)       seed 2  f1 0.7479
+   50% labels  W2V skip-gram, frozen        seed 2  f1 0.7126
+   50% labels  W2V skip-gram, fine-tuned    seed 2  f1 0.7496
+
+Label efficiency, mean test F1:
+fraction                     0.10    0.25    0.50    1.00
+variant                                                  
+Random init (baseline)     0.4328  0.6820  0.7115  0.7482
+W2V skip-gram, fine-tuned  0.6905  0.7067  0.7398  0.7573
+W2V skip-gram, frozen      0.6912  0.6844  0.7092  0.7111
+
+All results saved to D:\SCHOOL\Deep learning\Final project\results\exp2_unsupervised

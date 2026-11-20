@@ -1,0 +1,42 @@
+Labelled tweets (train.csv): 7613
+Unlabelled tweets (test.csv): 3263
+
+Missing values (labelled):
+  keyword     0.8%
+  location   33.3%
+  text        0.0%
+
+Class balance:
+  Not disaster   4342  (57.0%)
+  Disaster       3271  (43.0%)
+
+Shared split (stratified, seed 42):
+  test     762  disaster rate 42.9%
+  train   6090  disaster rate 43.0%
+  val      761  disaster rate 43.0%
+
+Duplicate rows (same text): 110
+Texts labelled inconsistently (both 0 and 1): 18
+
+Tweet length in tokens (after cleaning):
+  median 15 | p90 23 | p95 25 | p99 28 | max 36
+  tweets fully kept with max_len=32: 99.9%
+
+Word2Vec corpus: 9353 tweets, 143694 tokens
+Unique tokens: 16089 (8840 appear only once)
+Vocabulary with min_count=2: 7249
+Test-split tokens covered by that vocabulary: 91.1%
+
+Examples (raw -> tokens):
+  [Not disaster] 'Everyday is a near death fatality for me on the road. Thank god is on my side.??'
+      -> everyday is a near death fatality for me on the road thank god is on my side ? ?
+  [Not disaster] '#Lifestyle \x89Û÷It makes me sick\x89Ûª: Baby clothes deemed a \x89Û÷hazard\x89Ûª http://t.co/0XrfVidxA2 http://t.co/oIHwgEZDCk'
+      -> lifestyle it makes me sick baby clothes deemed a hazard <url> <url>
+  [Not disaster] '@Lenn_Len Probably. We are inundated with them most years!'
+      -> <user> probably we are inundated with them most years !
+  [Disaster] 'Nearly 50 thousand people affected by floods in #Paraguay ? http://t.co/aw23wXtyjB http://t.co/ABgct9VFUa'
+      -> nearly <number> thousand people affected by floods in paraguay ? <url> <url>
+  [Disaster] 'Vladimir Putin Issues Major Warning But Is It Too Late To Escape Armageddon?\nhttp://t.co/gBxafy1m1C'
+      -> vladimir putin issues major warning but is it too late to escape armageddon ? <url>
+  [Disaster] "@DoctorFluxx @StefanEJones @spinnellii @themermacorn  No burning buildings and rob during a riot. That's embarrassing &amp; ruining this nation."
+      -> <user> <user> <user> <user> no burning buildings and rob during a riot that's embarrassing ruining this nation
